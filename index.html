@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff"><title>Aimlock 1tr ☠️</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f5f5;color:#171717;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:560px;margin:auto;padding:22px 16px 48px}.panel{background:#fff;border:1px solid #e5e5e5;border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 5px 20px #00000008}
+h1{text-align:center;margin:12px 0 4px;font-size:28px}.sub{text-align:center;color:#666;margin:0 0 22px}
+label{display:block;font-weight:650;margin:13px 0 7px}input,select,button{width:100%;padding:13px;border:1px solid #d5d5d5;border-radius:11px;font:inherit;background:white}
+button{background:#171717;color:white;border:0;font-weight:700;margin-top:14px;cursor:pointer}
+.note{font-size:13px;color:#666;line-height:1.5}.hidden{display:none}.tag{display:inline-block;background:#eee;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:700}
+.range{display:flex;align-items:center;gap:12px}.range input{padding:0;flex:1}.range output{min-width:34px;text-align:right;font-variant-numeric:tabular-nums}
+.item{padding:10px 0;border-bottom:1px solid #eee}.item:last-child{border:0}.error{color:#b42318;font-weight:700}.ok{color:#087a3e;font-weight:700}
+a{color:#111}
+</style></head><body><main>
+<h1>☠️ AIMLOCK 1TR</h1><p class="sub">Công cụ tham khảo độ nhạy Free Fire</p>
+<section class="panel" id="login"><span class="tag">ĐĂNG NHẬP KEY</span>
+<label for="game">Phiên bản trò chơi</label><select id="game"><option>Free Fire thường</option><option>Free Fire MAX</option><option>Free Fire VN</option></select>
+<label for="key">Nhập KEY</label><input id="key" placeholder="Nhập key của bạn">
+<button onclick="login()">Xác nhận KEY</button><p id="msg"></p>
+<p class="note">KEY demo: ADMIN <b>AN-ADMIN-1TR-PERM</b> · VIP <b>AN-9628-7189-HWRT</b> · THƯỜNG <b>AN-9628-7189-NORM</b></p>
+<p class="note">Bản HTML demo lưu thời điểm kích hoạt trong trình duyệt. Xóa dữ liệu trình duyệt hoặc sửa mã có thể vượt giới hạn; muốn quản lý KEY an toàn cần máy chủ.</p></section>
+<section class="panel hidden" id="app"><span class="tag" id="tier"></span><p id="expiry" class="note"></p>
+<label for="brand">Hãng điện thoại</label><select id="brand" onchange="models()"><option>Apple iPhone</option><option>Samsung</option><option>OPPO</option><option>Xiaomi / Redmi / POCO</option><option>vivo / iQOO</option><option>realme</option><option>Google Pixel</option><option>Huawei</option><option>HONOR</option><option>OnePlus</option><option>Motorola</option><option>TECNO</option><option>Infinix</option><option>ASUS</option><option>Khác</option></select>
+<label for="model">Dòng máy</label><select id="model"></select>
+<label>Độ nhạy (0–200)</label><div id="sliders"></div><h3>Chức năng</h3><div id="features"></div>
+<p class="note">Các công tắc chỉ mô phỏng giao diện, không can thiệp game hoặc tự động điều khiển trò chơi.</p>
+<p>Liên hệ: <a href="https://www.tiktok.com/@baoan_549" target="_blank" rel="noopener">@baoan_549 trên TikTok</a></p><button onclick="logout()">Đăng xuất</button></section>
+</main><script>
+const KEY_ROLES={"AN-ADMIN-1TR-PERM":"ADMIN","AN-9628-7189-HWRT":"VIP","AN-9628-7189-NORM":"THUONG"};
+const DURATION=24*60*60*1000;
+const settings=["Nhìn xung quanh","Ống ngắm hồng tâm","Ống ngắm x2","Ống ngắm x4","Ống ngắm AWM","Nút camera tự do"];
+const modelsByBrand={
+"Apple iPhone":["iPhone 17 series","iPhone 16 series","iPhone 15 series","iPhone 14 series","iPhone 13 series","iPhone 12 series","iPhone 11 series","iPhone X / XS / XR","iPhone SE series"],
+"Samsung":["Galaxy S series","Galaxy Z series","Galaxy A series","Galaxy M series","Galaxy Note series"],
+"OPPO":["Find X series","Reno series","A series","K series"],"Xiaomi / Redmi / POCO":["Xiaomi series","Redmi Note series","Redmi series","POCO F series","POCO X series","POCO M series"],
+"vivo / iQOO":["vivo X series","vivo V series","vivo Y series","iQOO series"],"realme":["GT series","Number series","C series","Narzo series"],
+"Google Pixel":["Pixel 10 series","Pixel 9 series","Pixel 8 series","Pixel 7 series","Pixel 6 series","Pixel A series"],
+"Huawei":["Pura / P series","Mate series","Nova series","Y series"],"HONOR":["Magic series","Number series","X series"],"OnePlus":["OnePlus series","Nord series"],
+"Motorola":["Edge series","Razr series","Moto G series","Moto E series"],"TECNO":["Phantom series","Camon series","Pova series","Spark series"],
+"Infinix":["Zero series","GT series","Note series","Hot series"],"ASUS":["ROG Phone series","Zenfone series"],"Khác":["Dòng máy khác"]};
+function models(){let b=document.getElementById('brand').value;document.getElementById('model').innerHTML=modelsByBrand[b].map(x=>`<option>${x}</option>`).join('')}
+function login(){
+ const k=document.getElementById('key').value.trim().toUpperCase(),role=KEY_ROLES[k],msg=document.getElementById('msg');
+ if(!role){msg.className='error';msg.textContent='KEY không hợp lệ.';return}
+ let store=JSON.parse(localStorage.getItem('aimlock_key_expiry')||'{}');
+ if(role!=='ADMIN'){
+   if(!store[k]){store[k]=Date.now()+DURATION;localStorage.setItem('aimlock_key_expiry',JSON.stringify(store))}
+   if(Date.now()>=store[k]){msg.className='error';msg.textContent='KEY đã hết hạn sau 24 giờ.';return}
+ }
+ document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');
+ document.getElementById('tier').textContent='KEY '+role;
+ document.getElementById('expiry').textContent=role==='ADMIN'?'Thời hạn: Vĩnh viễn':'Còn hạn đến: '+new Date(store[k]).toLocaleString('vi-VN');
+ render(role);
+}
+function render(role){
+ document.getElementById('sliders').innerHTML=settings.map((s,i)=>`<div class="item"><label for="s${i}">${s}</label><div class="range"><input id="s${i}" type="range" min="0" max="200" value="100" oninput="this.nextElementSibling.value=this.value"><output>100</output></div></div>`).join('');
+ let list=role==='ADMIN'?['Quản lý KEY (giao diện demo)','Xem trạng thái hệ thống (demo)','Tính năng VIP','Tính năng thường']:role==='VIP'?['Aimlock VIP (mô phỏng)','Aim cổ / thân / ngồi (mô phỏng)','Tối ưu thiết bị (tham khảo)','Fix lag V100 (tham khảo)']:['Aimlock thường (mô phỏng)','Tối ưu RAM (tham khảo)','Aim thường (mô phỏng)','Fix lag V5 (tham khảo)'];
+ document.getElementById('features').innerHTML=list.map(x=>`<div class="item"><label><input type="checkbox" style="width:auto;margin-right:9px"> ${x}</label></div>`).join('');models();
+}
+function logout(){document.getElementById('app').classList.add('hidden');document.getElementById('login').classList.remove('hidden');document.getElementById('key').value=''}
+models();
+</script></body></html>
